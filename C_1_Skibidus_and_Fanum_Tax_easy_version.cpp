@@ -1,35 +1,50 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int t;
-    cin >> t;
-    while(t--){
-        int n,m;
-        vector<int> A(n);
-        vector<int> B(n);
-        for(int i=0;i<n;i++){
-            cin >> A[i];
 
-        }
-        for(int i=0;i<m;i++){
-            cin >> B[i];
+typedef long long ll;
 
-        }
-        int current = A[0];
-        int 
-        for(int i=0;i<n;i++){
-            A[i] = min(A[i],B[i]-A[i]);
-            if(A[i] >= A[i-1]){
-                cout << "YES" << endl;
-            }
-            else{
-                cout << "NO" << endl;
-            }
-
-            
-
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    ll b;
+    cin >> b; // Since m = 1, only one element exists in b
+    
+    // Set the first element optimally
+    a[0] = min(a[0], b - a[0]);
+    
+    for (int i = 1; i < n; i++) {
+        ll x = b - a[i];
+        ll y = a[i];
+        
+        // Choose the smallest valid value
+        if (min(x, y) >= a[i - 1]) {
+            a[i] = min(x, y);
+        } else if (max(x, y) >= a[i - 1]) {
+            a[i] = max(x, y);
+        } else {
+            cout << "NO\n";
+            return;
         }
     }
+    cout << "YES\n";
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
+    return 0;
 }
 
